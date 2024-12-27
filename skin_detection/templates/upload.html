@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Classifier</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Skin Disease Detection</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="image">Upload an Image:</label>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+        
+        <!-- Kết quả dự đoán -->
+        {% if predicted_class %}
+            <div class="result">
+                <h3>Prediction Result</h3>
+                <p><strong>Predicted Class:</strong> {{ predicted_class }}</p>
+                <p><strong>Confidence:</strong> {{ confidence }}</p>
+                <img src="{{ image_url }}" alt="Uploaded Image">
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
